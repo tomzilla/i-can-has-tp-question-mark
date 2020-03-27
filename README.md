@@ -1,5 +1,5 @@
 # Costco TP Checker
-It will try to check if the Kirkland brand TP is in stock. When it's available, it will send an email to your chosen address.
+It will try to check if the Kirkland brand TP is in stock. When it's available, it will send an email to the chosen address.
 
 This is not guaranteed to work.
 
