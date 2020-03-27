@@ -6,7 +6,7 @@ This is not guaranteed to work.
 # Requirements
 Ruby: https://www.ruby-lang.org/en/
 
-It uses Gmail's SMTP server to send the email so you'll need a Google account. You'll need to generate an App password if you're using 2-factor authentication. https://myaccount.google.com/u/1/apppasswords?
+It uses Gmail's SMTP server to send the email so you'll need a Google account. You'll need to generate an App password if you're using 2-factor authentication. https://myaccount.google.com/u/1/apppasswords
 
 # Instructions
 
