@@ -31,7 +31,8 @@ loop do
   if response['invAvailable']
     send_email
     break
+  else
+    puts 'Nope'
+    sleep 10
   end
-  puts 'Nope'
-  sleep 10
 end
