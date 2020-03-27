@@ -10,7 +10,7 @@ It uses Gmail's SMTP server to send the email so you'll need a Google account. Y
 
 # Instructions
 
-```
+```sh
 bundle
 
 GMAIL_USER=[your full google username like your gmail address] GMAIL_PW=[app password] TO_EMAIL=[your email] be ruby tp.rb
