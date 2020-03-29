@@ -1,0 +1,13 @@
+{
+  "name": "toilet-paper-checker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/tomzilla/i-can-has-tp-question-mark.git",
+  "author": "Tom Wu <tomw@squareup.com>",
+  "license": "MIT",
+  "dependencies": {
+    "nodemailer": "^6.4.6",
+    "puppeteer": "^2.1.1",
+    "selenium": "^2.20.0"
+  }
+}
