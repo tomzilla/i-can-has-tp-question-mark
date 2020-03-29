@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-const zipCode = '94595';
+const zipCode = process.env.ZIP_CODE;
 const headers = {
   // ':authority': 'www.costco.com',
   // ':method': 'GET',
@@ -23,14 +23,14 @@ const sendEmail = async () => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: ENV['GMAIL_USER'],
-      pass: ENV['GMAIL_PW']
+      user: process.env.GMAIL_USER,
+      pass: process.env.GMAIL_PW
     }
   });
 
   const mailOptions = {
-    from: ENV['GMAIL_USER'],
-    to: ENV['TO_EMAIL'],
+    from: process.env.GMAIL_USER,
+    to: process.env.TO_EMAIL,
     subject: 'TP',
     text: 'https://www.costco.com/kirkland-signature-bath-tissue%2c-2-ply%2c-425-sheets%2c-30-rolls.product.100142093.html'
   };
@@ -40,6 +40,7 @@ const sendEmail = async () => {
 
 const check = async () => {
   const browser = await puppeteer.launch({
+    headless: false,
     args: [
       '--disable-web-security',
     ]
@@ -51,29 +52,30 @@ const check = async () => {
   });
   await page.setJavaScriptEnabled(true);
   await page.setExtraHTTPHeaders(headers);
-  await page.goto('https://www.costco.com/kirkland-signature-bath-tissue%2c-2-ply%2c-425-sheets%2c-30-rolls.product.100142093.html');
-  await page.screenshot({path: 'file.png'});
-  const zipInput = await page.waitForSelector('#delivery-zip', {
-  });
-  console.log('delivery zip here')
-  await page.type('#postal-code-input', '94595', {delay: 100})
-  console.log('typed')
-  await page.screenshot({path: 'file2.png'});
+  await page.goto(process.env.COSTCO_URL);
 
-  const [response] = await Promise.all([
-    page.click('#postal-code-submit'),
-    page.waitForNavigation({
-      timeout: 60000,
-    }),
-  ]);
+  try {
+    await page.waitForSelector('#delivery-zip');
+    console.log('delivery zip here')
+    await page.type('#postal-code-input', zipCode, {delay: 100})
+    console.log('typed')
 
-  await page.screenshot({path: 'file3.png'});
+    const [response] = await Promise.all([
+      page.click('#postal-code-submit'),
+      page.waitForNavigation({
+        timeout: 60000,
+      }),
+    ]);
+  } catch (e) {
+    console.log('No zip form. Look for add cart');
+  }
+
   await page.waitForSelector('#add-to-cart', {
-    timeout: 60000
+    timeout: 10000
   });
   await page.waitForSelector('#qty-input', {
     visible: true,
-    timeout: 500,
+    timeout: 10000,
   });
 };
 
@@ -82,9 +84,10 @@ const start = async () => {
     try {
       await check();
       console.log('In stock!');
-      await sendEmail;
+      await sendEmail();
       break;
     } catch (e) {
+      console.error(e);
       console.log('Out of stock!');
     }
   }
