@@ -40,7 +40,6 @@ const sendEmail = async () => {
 
 const check = async () => {
   const opts = {
-    headless: false,
     args: [
       '--disable-web-security',
     ]
