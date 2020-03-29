@@ -32,7 +32,7 @@ const sendEmail = async () => {
     from: process.env.GMAIL_USER,
     to: process.env.TO_EMAIL,
     subject: 'TP',
-    text: 'https://www.costco.com/kirkland-signature-bath-tissue%2c-2-ply%2c-425-sheets%2c-30-rolls.product.100142093.html'
+    text: process.env.COSTCO_URL
   };
 
   return await transporter.sendMail(mailOptions);
@@ -40,6 +40,7 @@ const sendEmail = async () => {
 
 const check = async () => {
   const opts = {
+    headless: false,
     args: [
       '--disable-web-security',
     ]
@@ -85,7 +86,7 @@ const check = async () => {
     });
     console.log('add to cart')
     await page.click('#add-to-cart-btn');
-    await page.waitForSelector('.added-to-cart', { visible: true , timeout: 10000});
+    await page.waitForSelector('.added-to-cart', { visible: true , timeout: 30000});
   } catch (e) {
     browser.close();
     throw e;
