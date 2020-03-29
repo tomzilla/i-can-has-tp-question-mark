@@ -38,16 +38,7 @@ const sendEmail = async () => {
   return await transporter.sendMail(mailOptions);
 }
 
-const check = async () => {
-  const opts = {
-    args: [
-      '--disable-web-security',
-    ]
-  };
-  if (process.env.BROWSER_PATH) {
-    opts.executablePath = process.env.BROWSER_PATH;
-  }
-  const browser = await puppeteer.launch(opts);
+const check = async (browser) => {
   const page = await browser.newPage();
   await page.setViewport({
     width: 1440,
@@ -72,22 +63,36 @@ const check = async () => {
   } catch (e) {
     console.log('No zip form. Look for add cart');
   }
-  console.log('Looking for add to cart');
-  await page.waitForSelector('#add-to-cart', {
-    timeout: 10000
-  });
-  console.log('Looking for quantity');
+  try {
+    console.log('Looking for add to cart');
+    await page.waitForSelector('#add-to-cart', {
+      timeout: 10000
+    });
+    console.log('Looking for quantity');
 
-  await page.waitForSelector('#qty-input', {
-    visible: true,
-    timeout: 20000,
-  });
+    await page.waitForSelector('#qty-input', {
+      visible: true,
+      timeout: 20000,
+    });
+  } catch (e) {
+    page.close();
+    throw e;
+  }
 };
 
 const start = async () => {
+  const opts = {
+    args: [
+      '--disable-web-security',
+    ]
+  };
+  if (process.env.BROWSER_PATH) {
+    opts.executablePath = process.env.BROWSER_PATH;
+  }
+  const br = await puppeteer.launch(opts);
   while (true) {
     try {
-      await check();
+      await check(br);
       console.log('In stock!');
       await sendEmail();
       break;
