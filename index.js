@@ -58,11 +58,11 @@ const check = async () => {
   await page.setRequestInterception(true);
 
   page.on('request', (req) => {
-      if(req.resourceType() === 'image'){
-          req.abort();
+    if(req.resourceType() == 'stylesheet' || req.resourceType() == 'font' || req.resourceType() == 'image'){
+        req.abort();
       }
       else {
-          req.continue();
+        req.continue();
       }
   });
   await page.goto(process.env.COSTCO_URL);
