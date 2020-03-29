@@ -89,7 +89,7 @@ const check = async () => {
   });
   await page.waitForSelector('#qty-input', {
     visible: true,
-    timeout: 10000,
+    timeout: 20000,
   });
 };
 
