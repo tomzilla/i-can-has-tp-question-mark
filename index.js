@@ -83,6 +83,9 @@ const check = async () => {
       visible: true,
       timeout: 20000,
     });
+
+    await page.click('#add-to-cart-btn');
+    await page.waitForSelector('.added-to-cart', { visible: true , timeout: 10000});
   } catch (e) {
     browser.close();
     throw e;
