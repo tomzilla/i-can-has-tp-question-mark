@@ -55,16 +55,6 @@ const check = async () => {
   });
   await page.setJavaScriptEnabled(true);
   await page.setExtraHTTPHeaders(headers);
-  await page.setRequestInterception(true);
-
-  page.on('request', (req) => {
-    if(req.resourceType() == 'stylesheet' || req.resourceType() == 'font' || req.resourceType() == 'image'){
-        req.abort();
-      }
-      else {
-        req.continue();
-      }
-  });
   await page.goto(process.env.COSTCO_URL);
 
   try {
@@ -85,7 +75,6 @@ const check = async () => {
 
   await page.waitForSelector('#add-to-cart', {
     timeout: 10000
-  // await page.goto('https://www.costco.com/kirkland-signature-bath-tissue%2c-2-ply%2c-425-sheets%2c-30-rolls.product.100142093.html');
   });
   await page.waitForSelector('#qty-input', {
     visible: true,
