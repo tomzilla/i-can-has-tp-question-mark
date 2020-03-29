@@ -55,6 +55,16 @@ const check = async () => {
   });
   await page.setJavaScriptEnabled(true);
   await page.setExtraHTTPHeaders(headers);
+  await page.setRequestInterception(true);
+
+  page.on('request', (req) => {
+      if(req.resourceType() === 'image'){
+          req.abort();
+      }
+      else {
+          req.continue();
+      }
+  });
   await page.goto(process.env.COSTCO_URL);
 
   try {
