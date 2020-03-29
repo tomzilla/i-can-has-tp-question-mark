@@ -61,18 +61,18 @@ const check = async () => {
     await page.waitForSelector('#delivery-zip');
     console.log('delivery zip here')
     await page.type('#postal-code-input', zipCode, {delay: 100})
-    console.log('typed')
-
+    console.log('Clicking submit zipcode')
     const [response] = await Promise.all([
       page.click('#postal-code-submit'),
       page.waitForNavigation({
         timeout: 60000,
       }),
     ]);
+    console.log('Page reloaded');
   } catch (e) {
     console.log('No zip form. Look for add cart');
   }
-
+  console.log('Looking for add to cart');
   await page.waitForSelector('#add-to-cart', {
     timeout: 10000
   });
