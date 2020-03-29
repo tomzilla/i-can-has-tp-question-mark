@@ -38,7 +38,16 @@ const sendEmail = async () => {
   return await transporter.sendMail(mailOptions);
 }
 
-const check = async (browser) => {
+const check = async () => {
+  const opts = {
+    args: [
+      '--disable-web-security',
+    ]
+  };
+  if (process.env.BROWSER_PATH) {
+    opts.executablePath = process.env.BROWSER_PATH;
+  }
+  const browser = await puppeteer.launch(opts);
   const page = await browser.newPage();
   await page.setViewport({
     width: 1440,
@@ -75,24 +84,15 @@ const check = async (browser) => {
       timeout: 20000,
     });
   } catch (e) {
-    page.close();
+    browser.close();
     throw e;
   }
 };
 
 const start = async () => {
-  const opts = {
-    args: [
-      '--disable-web-security',
-    ]
-  };
-  if (process.env.BROWSER_PATH) {
-    opts.executablePath = process.env.BROWSER_PATH;
-  }
-  const br = await puppeteer.launch(opts);
   while (true) {
     try {
-      await check(br);
+      await check();
       console.log('In stock!');
       await sendEmail();
       break;
