@@ -39,12 +39,16 @@ const sendEmail = async () => {
 }
 
 const check = async () => {
-  const browser = await puppeteer.launch({
+  const opts = {
     headless: false,
     args: [
       '--disable-web-security',
     ]
-  });
+  };
+  if (process.env.BROWSER_PATH) {
+    opts.executablePath = process.env.BROWSER_PATH;
+  }
+  const browser = await puppeteer.launch(opts);
   const page = await browser.newPage();
   await page.setViewport({
     width: 1440,
@@ -72,6 +76,7 @@ const check = async () => {
 
   await page.waitForSelector('#add-to-cart', {
     timeout: 10000
+  // await page.goto('https://www.costco.com/kirkland-signature-bath-tissue%2c-2-ply%2c-425-sheets%2c-30-rolls.product.100142093.html');
   });
   await page.waitForSelector('#qty-input', {
     visible: true,
