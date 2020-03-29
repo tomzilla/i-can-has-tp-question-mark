@@ -76,6 +76,8 @@ const check = async () => {
   await page.waitForSelector('#add-to-cart', {
     timeout: 10000
   });
+  console.log('Looking for quantity');
+
   await page.waitForSelector('#qty-input', {
     visible: true,
     timeout: 20000,
