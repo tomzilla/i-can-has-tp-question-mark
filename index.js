@@ -90,6 +90,7 @@ const check = async () => {
     browser.close();
     throw e;
   }
+  browser.close();
 };
 
 const start = async () => {
@@ -98,7 +99,7 @@ const start = async () => {
       await check();
       console.log('In stock!');
       await sendEmail();
-      break;
+      process.exit(0);
     } catch (e) {
       console.error(e);
       console.log('Out of stock!');
@@ -114,6 +115,5 @@ const wait = async (ms) => {
   });
   return p;
 }
-
 
 start();
