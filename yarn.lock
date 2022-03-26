@@ -159,9 +159,9 @@ minimatch@^3.0.4:
     brace-expansion "^1.1.7"
 
 minimist@^1.2.5:
-  version "1.2.5"
-  resolved "https://artifactory.global.square/artifactory/api/npm/square-npm/minimist/-/minimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
-  integrity sha1-Z9ZgFLZqaoqqDAg8X9WN9OTpdgI=
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.6.tgz#8637a5b759ea0d6e98702cfb3a9283323c93af44"
+  integrity sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==
 
 mkdirp@^0.5.4:
   version "0.5.4"
@@ -257,11 +257,6 @@ safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.2"
   resolved "https://artifactory.global.square/artifactory/api/npm/square-npm/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
   integrity sha1-mR7GnSluAxN0fVm9/St0XDX4go0=
-
-selenium@^2.20.0:
-  version "2.20.0"
-  resolved "https://artifactory.global.square/artifactory/api/npm/square-npm/selenium/-/selenium-2.20.0.tgz#f515b1a162de93c2ccef2fc0ca33f3b5543e38c8"
-  integrity sha1-9RWxoWLek8LM7y/AyjPztVQ+OMg=
 
 string_decoder@~1.1.1:
   version "1.1.1"
